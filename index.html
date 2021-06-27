@@ -1,0 +1,43 @@
+<html>
+<head>
+<script src="PopCards.js" type=module></script>
+<style>
+
+
+body
+{
+	--ChequerBoardSize:		15px;
+	--ChequerBoardColourA:	 #9e8;
+	--ChequerBoardColourB:	 #7d6;
+	background:		repeating-conic-gradient( var(--ChequerBoardColourA) 7% 33%, var(--ChequerBoardColourB) 37% 64%) 50% / var(--ChequerBoardSize) var(--ChequerBoardSize);
+	xbackground:		repeating-conic-gradient( var(--ChequerBoardColourA) 0% 25%, var(--ChequerBoardColourB) 0% 50%) 50% / var(--ChequerBoardSize) var(--ChequerBoardSize);
+}
+
+/* test custom layout of cards*/
+
+card-river
+{
+	display: flex;
+	flex-direction: row;
+	align-content: space-between;
+	justify-content: space-evenly;
+	align-items: center;
+	flex-wrap: wrap;
+}
+/*
+card-river
+{
+	display:				grid;
+	grid-template-columns:	repeat(auto-fit, minmax(10px,1fr));
+}*/
+
+</style>
+</head>
+
+<body>
+
+<card-river cards="ha,dk,sq,cj,hx,d9,s8,c7,h6,?" css="Cards.css"></card-river>
+
+</body>
+
+</html>

@@ -1,0 +1,98 @@
+
+.Card
+{
+	--HeightRatio:	120%;
+	display:		block;
+	min-width:		3em;
+	xwidth:			100px;
+	xheight:			140px;
+	border-radius:	10%;
+	border:			solid black 1px;
+	background:		white;
+	
+	font-size:		18pt;
+	/* padding forces aspect ratio (%=width) but also vertically centers */
+	padding-top:	calc( var(--HeightRatio) * 0.5 - 0.5em);
+	padding-bottom: calc( var(--HeightRatio) * 0.5 - 0.5em);
+	text-align:		center;
+	
+	margin:			2px;
+	
+	/* for corners */
+	position:		relative;
+	
+	color:		var(--SuitColour);
+}
+
+/* put a backing on this card */
+.Card[card^="?"]
+{
+	--ChequerBoardSize:		10px;
+	--ChequerBoardColourA:	#eef;
+	--ChequerBoardColourB:	#ccf;
+	background:		repeating-conic-gradient( var(--ChequerBoardColourA) 0% 25%, var(--ChequerBoardColourB) 0% 50%) 50% / var(--ChequerBoardSize) var(--ChequerBoardSize);
+
+	--Suit:			"?";
+	--SuitColour:	#444;
+}
+
+/* quick hack, hide the first character (suit) */
+.Card::first-letter 
+{
+	font-size:	0px;
+}
+
+
+.Card
+{
+	--Suit:			attr(card);	/* fallback */
+	--SuitColour:	#0f0;
+}
+
+.Card[card^=h]
+{
+	--Suit:			'\2665';
+	--SuitColour:	#f00;
+}
+	
+.Card[card^=d]
+{
+	--Suit:			'\2666';
+	--SuitColour:	#f00;
+}
+
+.Card[card^=c]
+{
+	--Suit:			'\2663';
+	--SuitColour:	#000;
+}
+.Card[card^=s]
+{
+	--Suit:			'\2660';
+	--SuitColour:	#000;
+}
+
+
+
+/* corner symbols */
+.Card:before,
+.Card:after
+{
+	content:	attr(card);
+	content:	var(--Suit);
+	color:		var(--SuitColour);
+	text-align:	initial;
+	font-size:	60%;
+	display:	inline-block;
+	position:	absolute;
+	top:		0.15em;
+	left:		0.25em;
+	
+}
+
+.Card:after
+{
+	transform:	rotate(180deg);
+	bottom:		0.15em;
+	right:		0.25em;
+}
