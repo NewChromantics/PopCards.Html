@@ -1,12 +1,16 @@
 
 .Card
 {
+	font-family:	sans-serif;
+	font-weight:	bold;
+	text-transform:	uppercase;
+	
 	--HeightRatio:	120%;
 	display:		block;
 	min-width:		3em;
 	xwidth:			100px;
 	xheight:			140px;
-	border-radius:	10%;
+	border-radius:	max( 6%, 5px );	/* should be a % really */
 	border:			solid black 1px;
 	background:		white;
 	
@@ -21,7 +25,8 @@
 	/* for corners */
 	position:		relative;
 	
-	color:		var(--SuitColour);
+	color:			var(--SuitColour);
+	box-shadow:		2px 5px 0px 0px black;
 }
 
 /* put a backing on this card */
