@@ -7,7 +7,7 @@ No transpiling/compiling needed.
 
 Usage
 ---------------
-See /index.html for an example of usage
+See [index.html](index.html) for an example of usage
 
 `<card-element card="WhateverYouLike"></card-element>` makes a basic card. You're unlikely to use this directly
 
