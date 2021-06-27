@@ -37,8 +37,10 @@
 	--ChequerBoardColourB:	#ccf;
 	background:		repeating-conic-gradient( var(--ChequerBoardColourA) 0% 25%, var(--ChequerBoardColourB) 0% 50%) 50% / var(--ChequerBoardSize) var(--ChequerBoardSize);
 
-	--Suit:			"?";
 	--SuitColour:	#444;
+	/* hide text */
+	--Suit:			" ";
+	color:			transparent;
 }
 
 /* quick hack, hide the first character (suit) */
