@@ -98,7 +98,7 @@ export default class CardRiver extends HTMLElement
 	get CardChildren()
 	{
 		let Children = Array.from( this.Shadow.children );
-		Children = Children.filter( e => e.nodeType == CardElement.ElementName() );
+		Children = Children.filter( e => e instanceof CardElement );
 		return Children;
 	}
 
