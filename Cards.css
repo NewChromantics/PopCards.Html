@@ -20,7 +20,7 @@
 	padding-bottom: calc( var(--HeightRatio) * 0.5 - 0.5em);
 	text-align:		center;
 	
-	margin:			2px;
+	margin:			5px;
 	
 	/* for corners */
 	position:		relative;
