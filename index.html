@@ -33,12 +33,20 @@ card-river
 	grid-template-columns:	repeat(auto-fit, minmax(10px,1fr));
 }*/
 
+#Hand
+{
+	position:	absolute;
+	bottom:		10px;
+}
+
 </style>
 </head>
 
 <body>
 
 <card-river cards="ha,dk,sq,cj,hx,d9,s8,c7,h6,?" css="Cards.css"></card-river>
+<card-river css="Cards.css"></card-river>
+<card-river id="Hand" cards="$10,$20,X1,££,?,@,%" css="Cards.css"></card-river>
 
 </body>
 
