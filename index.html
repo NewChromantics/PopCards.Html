@@ -1,6 +1,6 @@
 <html>
 <head>
-<script src="PopCards.js" type=module></script>
+<script src="./PopCards.js" type=module></script>
 <!--<script src="https://newchromantics.github.io/PopCards.Html/PopCards.js" type=module></script>-->
 <style>
 
@@ -39,14 +39,61 @@ card-river
 	bottom:		10px;
 }
 
+#FlipCard
+{
+	max-width:	20vw;
+	max-height:	20vh;
+	display:	block;
+	margin-top:	10vh;
+}
+
+
 </style>
 </head>
 
 <body>
 
+
 <card-river cards="ha,dk,sq,cj,hx,d9,s8,c7,h6,?" css="Cards.css"></card-river>
 <card-river css="Cards.css"></card-river>
 <card-river id="Hand" cards="$10,$20,X1,££,?,@,%" css="Cards.css"></card-river>
+
+<card-element id="FlipCard" card="?" css="Cards.css" onclick="ToggleCard(this)"></card-element>
+
+<script>
+CSS.registerProperty({
+      name: "--z",
+      syntax: "<number>",
+      initialValue: 0,
+      inherits: "false"
+   });
+   CSS.registerProperty({
+      name: "--rotation",
+      syntax: "<number>",
+      initialValue: 0,
+      inherits: "false"
+   });   
+   CSS.registerProperty({
+      name: "--frontface",
+      syntax: "<number>",
+      initialValue: 1,
+      inherits: "false"
+   });
+   
+	function ToggleCard(Card)
+	{
+		if ( Card.card != '?' )
+		{
+			Card.Original = Card.card;
+			Card.card = '?';
+		}
+		else
+		{
+			Card.card = Card.Original;
+		}
+	}
+</script>
+			
 
 </body>
 

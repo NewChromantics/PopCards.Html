@@ -1,9 +1,19 @@
+:Host
+{
+	--ChequerBoardSize:		10px;
+	--ChequerBoardColourA:	#eef;
+	--ChequerBoardColourB:	#ccf;
+	--ChequerBackground:		repeating-conic-gradient( var(--ChequerBoardColourA) 0% 25%, var(--ChequerBoardColourB) 0% 50%) 50% / var(--ChequerBoardSize) var(--ChequerBoardSize);
+
+}
 
 .Card
 {
+	--frontface:	0;
 	font-family:	sans-serif;
 	font-weight:	bold;
 	text-transform:	uppercase;
+	color:			var(--SuitColour);
 	
 	--HeightRatio:	120%;
 	display:		block;
@@ -14,7 +24,8 @@
 	border:			solid black 1px;
 	background:		white;
 	
-	font-size:		18pt;
+	font-size:		25pt;	/* basically dictates everything */
+	
 	/* padding forces aspect ratio (%=width) but also vertically centers */
 	padding-top:	calc( var(--HeightRatio) * 0.5 - 0.5em);
 	padding-bottom: calc( var(--HeightRatio) * 0.5 - 0.5em);
@@ -25,58 +36,57 @@
 	/* for corners */
 	position:		relative;
 	
-	color:			var(--SuitColour);
 	box-shadow:		2px 5px 0px 0px black;
 }
+
 
 /* put a backing on this card */
 .Card[card^="?"]
 {
-	--ChequerBoardSize:		10px;
-	--ChequerBoardColourA:	#eef;
-	--ChequerBoardColourB:	#ccf;
-	background:		repeating-conic-gradient( var(--ChequerBoardColourA) 0% 25%, var(--ChequerBoardColourB) 0% 50%) 50% / var(--ChequerBoardSize) var(--ChequerBoardSize);
+	background:	var(--ChequerBackground);
 
-	--SuitColour:	#444;
+	--SuitColour:	rgba( 0, 0, 0, 0.5 );
 	/* hide text */
 	--Suit:			" ";
 	color:			transparent;
 }
 
 /* quick hack, hide the first character (suit) */
+/* gr: doesnt work on ios; https://stackoverflow.com/a/7631782/355753 */
 .Card::first-letter 
 {
 	font-size:	0px;
+	color:	magenta;
 }
 
 
 .Card
 {
 	--Suit:			attr(card);	/* fallback */
-	--SuitColour:	#0f0;
+	--SuitColour:	rgba( 255, 0, 255, var(--frontface) );
 }
 
 .Card[card^=h]
 {
 	--Suit:			'\2665';
-	--SuitColour:	#f00;
+	--SuitColour:	rgba( 255, 0, 0, var(--frontface) );
 }
 	
 .Card[card^=d]
 {
 	--Suit:			'\2666';
-	--SuitColour:	#f00;
+	--SuitColour:	rgba( 255, 0, 0, var(--frontface) );
 }
 
 .Card[card^=c]
 {
 	--Suit:			'\2663';
-	--SuitColour:	#000;
+	--SuitColour:	rgba( 0,0,0, var(--frontface) );
 }
 .Card[card^=s]
 {
 	--Suit:			'\2660';
-	--SuitColour:	#000;
+	--SuitColour:	rgba( 0,0,0, var(--frontface) );
 }
 
 
@@ -102,4 +112,94 @@
 	transform:	rotate(180deg);
 	bottom:		0.15em;
 	right:		0.25em;
+}
+
+
+
+/*	gr: tweak the animation with a bezier curve, not with % */
+@keyframes FlipFromMystery
+{
+	0%
+	{
+		background:	var(--ChequerBackground);
+		--frontface:	0;
+		--z:			0;
+		--rotation:		180;
+	}
+
+	25%
+	{	
+		--rotation:	180;
+		--z:		3;
+	}
+
+	49.99%
+	{
+		--rotation:	90;
+		--z:		4;
+		background:	var(--ChequerBackground);
+		--frontface:	0;
+	}
+	
+	50%
+	{
+		--z:		4;
+		--rotation:	90;
+		background:	white;
+		--frontface:	1;
+	}
+	
+	75%
+	{
+		--rotation:	0;
+		--z:		3;
+	}
+
+	100%
+	{
+		--rotation:	0;
+		--z:		0;
+		--frontface:	1;
+	}
+	
+}
+
+
+.Card
+{
+	transform:			rotateY( calc( var(--rotation) * 1deg ) ) translateY( calc( var(--z) * -1vh) );
+	transform-style:	preserve-3d;
+	perspective:		1000px;
+	
+	--ShadowSpread:		calc( -4px + var(--z) * -3px );
+	--ShadowY:			calc( var(--z) * 1vh );
+	 
+	box-shadow:			0px var(--ShadowY) 8px var(--ShadowSpread) #000;
+}
+
+.Card:not([card^="?"])
+{
+	animation-name:				FlipFromMystery;
+	animation-duration:			1s;
+	animation-delay:			0s;
+	animation-iteration-count:	1;
+	animation-timing-function:	cubic-bezier(0.21, 0.85, 0.35, 0.93);
+
+	/* start at starting point and hold last frame, so we can use delay */
+	animation-fill-mode:		forwards;
+}
+
+
+/* gr: in chrome, you need to use CSS.registerProperty(), these dont work by themselves */
+@property --z
+{
+	syntax:			"<number>";
+	initial-value:	0;
+	inherits:		false;
+}
+@property --frontface
+{
+	syntax:			"<number>";
+	initial-value:	1;
+	inherits:		false;
 }
